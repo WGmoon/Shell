@@ -1,2 +1,2 @@
 # Shell
-script
+学习shell脚本
