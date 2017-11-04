@@ -1,6 +1,8 @@
+# 定制自己的登录脚本
 vim $HOME/.bash_profile
 
 server_ip=`ip addr | grep inet | grep eth0 | awk '{print $2}'`;
+# 获取IP
 login_date=`date`;
 login_user=`users`;
 login_uptime=`uptime | awk -F ',' '{print $1 $2 $3}'`;
