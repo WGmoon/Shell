@@ -18,3 +18,4 @@ echo -e "Uptime:   \033[33m$login_uptime\033[0m"
 echo -e "Pwd:       \033[33m$login_pwd\033[0m"
 echo -e "\033[31m                   ^.^\033[0m"
 echo -e "\033[34m+-------------------------------------+\033[0m"
+ 
