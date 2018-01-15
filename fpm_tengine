@@ -1,27 +1,27 @@
-#环境为centos6
-
+# 环境为centos6
+# 安装FPM
 yum -y groupinstall "Development Tools"
 yum -y install ruby ruby-devel rubygems gcc openssl-devel
 
-#安装依赖：
+# 安装依赖：
 # ruby：
 yum -y install ruby rubygems ruby-devel
 
 gem sources --add http://gems.ruby-china.org/ --remove http://rubygems.org/
 
-#安装fpm：
+# 安装fpm：
  gem install fpm -v 1.4.0
-  #不选择版本会提示安装不上 ，也可以更新ruby解决fpm安装失败的问题。 fpm 是封装了 rpmbuild 的软件包，所以还需要安装rpmbuild
+ #不选择版本会提示安装不上 ，也可以更新ruby解决fpm安装失败的问题。 fpm 是封装了 rpmbuild 的软件包，所以还需要安装rpmbuild
  yum install rpm-build
 
 # 实验：将tengine源码包打包为rpm
 # 在解压后的tengine目录下
 ./configure --prefix=/home/nginx --with-http_dav_module --with-http_concat_module --with-http_sysguard_module --with-http_flv_module --with-http_mp4_module --with-jemalloc
+# 有的文件报错，是因为没有安装开发包
 make && make insatll
-
+yum install  pcre  pcre-devel  openssl-devel    jemalloc-devel jemalloc -y
 fpm  -s dir -t rpm -n tengine -d 'pcre' -d 'pcre-devel' -d 'openssl-devel' -d 'jemalloc' -d 'jemalloc-devel' --verbose --description 'XesL7Proxy' --url 'xueersi.com' -C /usr/local/lnmp/tengine -p /root --prefix /usr/local/lnmp/tengine -f
-
-#注意，-C为编译后的目录
+#注意，-C为编译后的目录，-n为名字，-prefix为用rpm包安装的目录，-p为rpm包保存的目录
 
 
 
