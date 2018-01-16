@@ -1,0 +1,35 @@
+php扩展模块--curl：
+
+/usr/local/lnmp/php/bin/phpize		#生成configure可执行文件，该文件是已经编译过的php目录中的
+./configure --with-php-config=/usr/local/lnmp/php/bin/php-config #生成**.so文件
+make && make install  #会告诉.so文件的生成路径
+vim /usr/local/lnmp/php/lib/php.ini
+###########
+extension_dir = "/usr/local/lnmp/php/lib/php/extensions/no-debug-non-zts-20170718/"
+extension = "curl.so"
+###########
+
+出现的问题：
+运行/usr/local/webserver/php/bin/phpize时出现：
+Configuring for:
+PHP Api Version:         20041225
+Zend Module Api No:      20060613
+Zend Extension Api No:   220060519
+Cannot find autoconf. Please check your autoconf installation and the
+$PHP_AUTOCONF environment variable. Then, rerun this script.
+根据网上的解决办法是：
+# yum install m4
+# yum install autoconf
+
+运行./configure --with-php-config=/usr/local/lnmp/php/bin/php-config时出现：
+configure: error: cURL version 7.10.5 or later is required to compile php ......
+解决的方法：
+yum install curl-devel
+
+1.更改php.ini，需要重启php-fpm 语法：service php-fpm restart
+2.若想在编译PHP时指定配置文件路径，加上：--with-config-file-path=/etc ，些路径需要是存在的路径，否则php.ini无法写入，
+[root@xue2 etc]# /usr/local/lnmp/php/bin/php --ini
+Configuration File (php.ini) Path: /usr/local/lnmp/php/lib
+Loaded Configuration File:         /usr/local/lnmp/php/lib/php.ini
+Scan for additional .ini files in: (none)
+Additional .ini files parsed:      (none)
